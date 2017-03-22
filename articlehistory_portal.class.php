@@ -87,11 +87,12 @@ class articlehistory_portal extends portal_generic {
 		}
 		
 		// generate output
+		$strBaseURL = $this->pdh->get('article_categories', 'path', array($intCategoryID));
 		$strOutput = '<ul>';
 		foreach($arrOutput as $intYear => $arrYear){
 			$strOutput .= '<li><h3>'.$intYear.'</h3><ul>';
 			foreach($arrYear as $intMonth => $intArticles){
-				$strURL		= '';
+				$strURL		= $strBaseURL.'&month='.$intYear.str_pad($intMonth,2,'0',STR_PAD_LEFT);
 				$strText	= $arrMonthsNames[((int)$intMonth-1)].' '.$intYear;
 				$strTitle	= $arrMonthsNames[((int)$intMonth-1)].' '.$intYear.' ('.$intArticles.' '.(($intArticles > 1)? $this->user->lang('articles') : $this->user->lang('article')).')';
 				$strOutput	.= '<li><a href="'.$strURL.'" title="'.$strTitle.'">'.$strText.'</a></li>';
